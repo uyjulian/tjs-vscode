@@ -1,6 +1,6 @@
-{
-  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-  "name": "TJS",
+// [PackageDev] target_format: plist, ext: tmLanguage
+{ "name": "TJS",
+  "fileTypes": ["tjs"],
   "patterns": [
     {
       "include": "#code"
@@ -174,15 +174,27 @@
             ]
         },
         {
-            "match": "\".*?\"",
-            "name": "string.quoted.double.literal.tjs"
+            "begin": "\"",
+            "end": "\"",
+            "name": "string.quoted.double.literal.tjs",
+            "patterns": [
+                {
+                    "include": "#string-character-escape"
+                }
+            ]
         },
         {
-            "match": "'.*?'",
-            "name": "string.quoted.single.literal.tjs"
+            "begin": "'",
+            "end": "'",
+            "name": "string.quoted.single.literal.tjs",
+            "patterns": [
+                {
+                    "include": "#string-character-escape"
+                }
+            ]
         },
         {
-            "match": "(?<=^|[,;=\\?\\:\\(\\[{}<>+\\-%/\\\\*!~#$&]|&&|\\|\\||if|invalidate|isvalid|delete|typeof|instanceof|incontextof|int|real|string)[ \\t]*((?<!\\/)\\/(?!\\/).+?\\/[gi]{0,2})(?=[ \\t]*(?:[,;=\\?:\\)<>\\].\\r\\n]|if|instanceof|incontextof|\\b|&&|\\|\\|))",
+            "match": "(?<=^|[,;=\\?\\:\\(\\[{}<>+\\-%/\\\\*!~#$&]|&&|\\|\\||if|invalidate|isvalid|delete|typeof|instanceof|incontextof|int|real|string|const)[ \\t]*((?<!\\/)\\/(?!\\/).+?\\/[gi]{0,2})(?=[ \\t]*(?:[,;=\\?:\\)<>\\].\\r\\n]|if|instanceof|incontextof|\\b|&&|\\|\\|))",
             "name": "string.regexp.literal.tjs"
         },
         {
@@ -206,7 +218,7 @@
             "name": "constant.numeric.binary.literal.tjs"
         },
         {
-            "match": "\\b([1-9.][0-9.]*|0\\.[0-9]*|0)([eE][+-]?[0-9]*)?\\b",
+            "match": "(?x)(?<!\\$)(?:(?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|(?:\\b[0-9][0-9_]*(\\.)[eE][+-]?[0-9][0-9_]*(n)?\\b)|(?:\\B(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|(?:\\b[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|(?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b)|(?:\\b[0-9][0-9_]*(\\.)(n)?\\B)|(?:\\B(\\.)[0-9][0-9_]*(n)?\\b)|(?:\\b[0-9][0-9_]*(n)?\\b(?!\\.)))(?!\\$)",
             "name": "constant.numeric.decimal.literal.tjs"
         },
         {
@@ -250,8 +262,11 @@
             }
         },
         {
-            "begin": "%\\[",
+            "begin": "(\\((const)\\)\\s*)?%\\[",
             "end": "\\]",
+            "captures": {
+                "2": { "name": "keyword.operator.tjs" }
+            },
             "name": "meta.dictionary.tjs",
             "patterns": [
                 { "include": "#preprocessed" },
@@ -278,8 +293,11 @@
             ]
         },
         {
-            "begin": "\\[",
+            "begin": "(\\((const)\\)\\s*)?\\[",
             "end": "\\]",
+            "captures": {
+                "2": { "name": "keyword.operator.tjs" }
+            },
             "name": "meta.array.tjs",
             "patterns": [
                 { "include": "#expression" }
@@ -300,6 +318,10 @@
             ]
         }
       ]
+    },
+    "string-character-escape": {
+        "name": "constant.character.escape.tjs",
+        "match": "\\\\(x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)"
     },
     "control": {
       "patterns" : [
@@ -346,5 +368,6 @@
       ]
     }
   },
-  "scopeName": "source.tjs"
+  "scopeName": "source.tjs",
+  "uuid": "7a013d9e-6b1a-4ff8-8550-58ee884cd846"
 }
