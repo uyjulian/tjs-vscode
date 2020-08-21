@@ -62,13 +62,16 @@
     "definition": {
       "patterns" : [
         {
-            "match": "\\b(class)\\s+(\\w+)(\\s+(extends)\\s*(\\w+))?",
-            "captures": {
+            "begin": "\\b(class)\\s+(\\w+)(\\s+(extends)\\s*)?",
+            "beginCaptures": {
                 "1": { "name": "storage.type.class.tjs" },
                 "2": { "name": "entity.name.type.tjs" },
-                "4": { "name": "storage.type.class.tjs" },
-                "5": { "name": "entity.name.type.tjs" }
-            }
+                "4": { "name": "storage.type.class.tjs" }
+            },
+            "end": "$",
+            "patterns": [
+                { "include": "#expression" }
+            ]
         },
         {
             "begin": "\\b(function)\\s+(\\w+)\\s*\\(",
@@ -194,8 +197,12 @@
             ]
         },
         {
-            "match": "(?<=^|[,;=\\?\\:\\(\\[{}<>+\\-%/\\\\*!~#$&]|&&|\\|\\||if|invalidate|isvalid|delete|typeof|instanceof|incontextof|int|real|string|const)[ \\t]*((?<!\\/)\\/(?!\\/).+?\\/[gi]{0,2})(?=[ \\t]*(?:[,;=\\?:\\)<>\\].\\r\\n]|if|instanceof|incontextof|\\b|&&|\\|\\|))",
-            "name": "string.regexp.literal.tjs"
+            "begin": "/(?=[^/])",
+            "end": "/[gi]?[gi]?",
+            "name": "string.regexp.literal.tjs",
+            "patterns": [
+                { "include": "source.regexp.js" }
+            ]
         },
         {
             "begin": "<%",
@@ -280,16 +287,7 @@
                         { "include": "#expression" }
                     ]
                 },
-                {
-                    "begin": "([\"'].+?[\"'])\\s*(,|=>)",
-                    "end": ",|=>|(?=\\])",
-                    "beginCaptures": {
-                        "1": { "name": "entity.name.tag.dictionary.tjs" }
-                    },
-                    "patterns": [
-                        { "include": "#expression" }
-                    ]
-                }
+                { "include": "#expression" }
             ]
         },
         {
