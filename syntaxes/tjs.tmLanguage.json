@@ -1,3 +1,4 @@
+// [PackageDev] target_format: plist, ext: tmLanguage
 { "name": "TJS",
   "fileTypes": ["tjs"],
   "patterns": [
@@ -200,7 +201,7 @@
             "end": "/[gi]?[gi]?",
             "name": "string.regexp.literal.tjs",
             "patterns": [
-                { "include": "source.regexp.tjs" }
+                { "include": "source.regexp.js" }
             ]
         },
         {

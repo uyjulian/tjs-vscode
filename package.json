@@ -32,19 +32,9 @@
                     "tjs"
                 ],
                 "extensions": [
-                    ".tjs",
-                    ".regexp.tjs"
+                    ".tjs"
                 ],
                 "configuration": "./language-configuration.json"
-            },
-            {
-                "id": "regexp.tjs",
-                "aliases": [
-                    "regexp.tjs"
-                ],
-                "extensions": [
-                    ".regexp.tjs"
-                ]
             }
         ],
         "grammars": [
@@ -52,11 +42,6 @@
                 "language": "tjs",
                 "scopeName": "source.tjs",
                 "path": "./syntaxes/tjs.tmLanguage.json"
-            },
-            {
-                "language": "regexp.tjs",
-                "scopeName": "source.regexp.tjs",
-                "path": "./syntaxes/regexp.tjs.tmLanguage.json"
             }
         ],
         "snippets": [
